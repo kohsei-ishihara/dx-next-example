@@ -1,0 +1,12 @@
+//$secondary: #e83e8c;
+//$enable-rounded: false;
+//@import 'node_modules/bootstrap/scss/bootstrap';
+
+$btn-focus-width:             0;
+$btn-focus-box-shadow:        0;
+@import 'node_modules/bootstrap/scss/bootstrap-reboot';
+@import 'node_modules/bootstrap/scss/bootstrap-grid';
+
+button:focus {
+  outline: 0;
+}

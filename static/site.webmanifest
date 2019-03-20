@@ -1,0 +1,38 @@
+{
+  "lang": "ja-JP",
+  "short_name": "test",
+  "name": "test site",
+  "start_url": "/",
+  "theme_color": "#37474f",
+  "background_color": "#FFF",
+  "description": "test site",
+  "icons": [
+    {
+      "src": "/static/images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone"
+}

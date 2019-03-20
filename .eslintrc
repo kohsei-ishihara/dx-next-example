@@ -1,0 +1,36 @@
+{
+  "env": {
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "indent": 2,
+    "@typescript-eslint/rule-name": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "indent": 2
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "indent": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+/.next/*
+/node_modules/*
+/css/*
+/.env
+/.npmrc
+/nginx/conf.d/server.crt
+/nginx/conf.d/private.key
+/nginx/conf.d/private.pass
+/yarn-error.log
+/__tests__/*
