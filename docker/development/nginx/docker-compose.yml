@@ -1,0 +1,12 @@
+version: '2'
+services:
+  nginx:
+    image: pagespeed/nginx-pagespeed:latest
+    container_name: dx-next-nginx-dev
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '../../../nginx/conf.d:/etc/nginx/conf.d'
+    links:
+      - express

@@ -1,0 +1,11 @@
+version: '2'
+services:
+  express:
+    networks:
+      - common_link
+  nginx:
+    networks:
+      - common_link
+networks:
+  common_link:
+    external: true
