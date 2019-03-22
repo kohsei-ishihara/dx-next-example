@@ -1,4 +1,7 @@
-const Enzyme = require('enzyme')
-const Adapter = require('enzyme-adapter-react-16')
+import Enzyme from 'enzyme'
+import EnzymeAdapter from 'enzyme-adapter-react-16'
 
-Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({
+  adapter: new EnzymeAdapter(),
+  disableLifecycleMethods: true
+})

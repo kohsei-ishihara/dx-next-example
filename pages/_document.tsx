@@ -2,7 +2,7 @@ import * as React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import JssProvider from 'react-jss/lib/JssProvider'
 import flush from 'styled-jsx/server'
-import getPageContext from '../components/getPageContext'
+import getPageContext from '../components/functions/getPageContext'
 import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends Document {
