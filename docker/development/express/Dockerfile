@@ -1,9 +1,18 @@
 FROM node:alpine
 
-ENV NODE_ENV=development
+ENV BUILD_PACKAGES="build-base bash git rsync"
 
-RUN apk add rsync
+RUN mkdir -p /var/www \
+    && chmod +x /var/www
 
-WORKDIR /src
+WORKDIR /var/www
 
-EXPOSE 3000
+RUN set -ex \
+    && apk update \
+    && apk upgrade  \
+    && apk add --update --no-cache \
+        $BUILD_PACKAGES \
+    && rm -rf /var/cache/apk/*
+
+#ENTRYPOINT tail -f /dev/null
+

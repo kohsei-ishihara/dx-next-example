@@ -2,10 +2,6 @@ const withTypescript = require('@zeit/next-typescript')
 const withCSS = require('@zeit/next-css')
 const withOffline = require('next-offline')
 
-require('dotenv').config()
-const path = require('path')
-const Dotenv = require('dotenv-webpack')
-
 const nextConfig = {
   workboxOpts: {
     swDest: 'service-worker.js',
@@ -32,13 +28,7 @@ const nextConfig = {
   },
   webpack: config => {
     config.plugins = config.plugins || []
-    config.plugins = [
-      ...config.plugins,
-      new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
-    ]
+    config.plugins = [...config.plugins]
     return config
   }
 }
