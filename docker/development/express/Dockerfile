@@ -1,9 +1,9 @@
 FROM node:alpine
 
-ENV BUILD_PACKAGES="build-base bash git rsync"
+ENV BUILD_PACKAGES="build-base bash git rsync lsyncd"
 
 RUN mkdir -p /var/www \
-    && chmod +x /var/www
+    #&& chmod +x /var/www
 
 WORKDIR /var/www
 
