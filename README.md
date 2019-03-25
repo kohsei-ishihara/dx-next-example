@@ -30,17 +30,20 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 │   ├── LazyImg.tsx                                  // Lazyloading Img タグ
 │   ├── StyledButton.tsx                             // MaterialUI Button タグカスタマイズサンプル
 │   └── StyledButton2.tsx                            // Bootstrap Button タグカスタマイズサンプル
+├── deploy                                           // ディプロイ設定フォルダ
 ├── docker                                           // Dockerフォルダ
 │   ├── development                                  // 開発用
-│   │   ├── express
-│   │   │   └── Dockerfile                           // アプリ用 Docker
-│   │   └── nginx
-│   │       └── Dockerfile                           // nginx用 Docker
+│   │   ├── express                                  // アプリ用
+│   │   │   ├── Dockerfile                           // Dockerイメージ設定
+│   │   │   ├── docker-compose.yml                   // 通常開発用
+│   │   │   └── docker-compose_build.yml             // ビルド確認用
+│   │   ├── network                                  // ネットワーク設定ファイル
+│   │   │   └── docker-compose.yml
+│   │   └── nginx                                    // nginx用
+│   │       └── docker-compose.yml
 │   └── production                                   // 本番用
-│       ├── express
-│       │   └── Dockerfile                           // アプリ用 Docker
-│       └── nginx
-│           └── Dockerfile                           // nginx用 Docker
+│       ├── express                                  // アプリ用 Docker
+│       └── nginx                                    // nginx用 Docker
 ├── keys                                             // SSL用のキー郡
 │   ├── private.key
 │   └── server.crt
@@ -93,10 +96,8 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 ├── .prettierignore                                  // prettier 除外設定
 ├── .stylelintrc.json                                // stylelint 設定
 ├── README.md                                        // このファイル
-├── docker-compose.development.sh                    // Docker compose 起動ファイル 開発用
-├── docker-compose.development.yml                   // Docker compose 設定ファイル 開発用
-├── docker-compose.sh                                // Docker compose 起動ファイル 本番用
-├── docker-compose.yml                               // Docker compose 設定ファイル 本番用
+├── docker-compose.dev.sh                            // Docker compose 起動ファイル 開発用
+├── docker-compose.dev_build.sh                      // Docker compose 起動ファイル ビルド確認用
 ├── jest.config.js                                   // jest 設定
 ├── jest.setup.js                                    // jest 用アダプタ
 ├── jest.tsconfig.json                               // jset 用 Typescript 設定
@@ -128,7 +129,32 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 ## Requirement
 
 ## Usage
+### Docker 起動
+* 開発用
+    ```
+    ./docker-compose.dev.sh up -d
+    ```
+* ビルド確認用
+    ```
+    ./docker-compose.dev_build.sh up -d
+    ```
+### ブラウザ確認
+* 開発用  
+    [http://localhost](http://localhost)
 
+* ビルド確認用  
+    [https://localhost](https://localhost)  
+    (自家製のSSL認証を使っているので、サーティフィケート無視で起動すること)
+    
+### サーティフィケート無視でのプラウザ起動コマンド例
+* Chromium
+    ```
+    /Applications/Chromium.app/Contents/MacOS/Chromium --user-data-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost
+    ```
+* Chrome
+    ``` 
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost  
+    ```
 ## Install
 
 ## Contribution

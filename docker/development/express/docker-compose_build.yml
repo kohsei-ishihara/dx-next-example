@@ -15,8 +15,11 @@ services:
       [
         sh,
         -c,
-        rsync -av --exclude 'node_modules' --exclude 'docker' --exclude 'mounts' /src/ /var/www && cd /var/www && rsync --daemon && mkdir -p /var/log/lsyncd && touch /var/log/lsyncd/lsyncd.log && lsyncd /etc/lsyncd/conf.d/default.conf && yarn upgrade && yarn dev,
+        rsync -av --exclude 'node_modules' --exclude 'docker' --exclude 'mounts' /src/ /var/www && cd /var/www && rsync --daemon && mkdir -p /var/log/lsyncd && touch /var/log/lsyncd/lsyncd.log && lsyncd /etc/lsyncd/conf.d/default.conf && yarn upgrade && yarn build && yarn start,
       ]
     ports:
-      - '80:3000'
+      - '3000:3000'
     env_file: ../../../.env
+  nginx:
+    links:
+      - express
