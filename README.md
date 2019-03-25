@@ -125,8 +125,11 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 * [ ] サービスとのAPIつなぎ込み
 
 ## Demo
+N/A
 
 ## Requirement
+[Docker](https://www.docker.com/)  
+[Visual Studio Code](https://code.visualstudio.com/) またはその他のエディタ・IDE  
 
 ## Usage
 ### アプリフォルダの準備
@@ -148,7 +151,11 @@ git remote set-url origin [新しいレポジトリのURL]
 git push
 ```
 
-
+### 調整作業
+1. localhost の 80, 443, 3000 番ポートを開けておく。すでにふさがっている場合は、docker-compose ファイルのポートを調整したり、お使いの PC の hosts ファイルにドメインを設定してたりなど適宜調整してください。
+2. .env.sample をコピーして .env ファイルを作成適宜変更してください。
+3. static フォルダの設定ファイルや画像ファイルをアプリに合わせて適宜変更してください。
+4. .npmrc ファイルに fontawesome pro のライセンスを設定してください。または、フリー版を利用するように変更してください。
 
 ### Docker 起動
 * 開発用
@@ -176,9 +183,6 @@ git push
     ``` 
     /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost  
     ```
-## Install
-
-## Contribution
 
 ## Licence
 UNLICENSED
