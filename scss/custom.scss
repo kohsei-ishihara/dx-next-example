@@ -4,6 +4,8 @@
 
 $btn-focus-width:             0;
 $btn-focus-box-shadow:        0;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "游ゴシック Medium", "Yu Gothic", YuGothic, YuGothicMedium, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !default;
+
 @import 'node_modules/bootstrap/scss/bootstrap-reboot';
 @import 'node_modules/bootstrap/scss/bootstrap-grid';
 

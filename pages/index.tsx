@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  loadData2,
+  loadData,
   startClock,
   tickClock,
   setPageNumber
@@ -29,7 +29,7 @@ class Index extends React.Component {
     store.dispatch(setPageNumber(query.page || '1'))
 
     if (!store.getState().placeholderData) {
-      store.dispatch(loadData2())
+      store.dispatch(loadData())
     }
     return { isServer, pageLog: inspect(query.page, true, 0) }
   }
