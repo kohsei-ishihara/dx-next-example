@@ -5,8 +5,6 @@ export const actionTypes = {
   RESET: 'RESET',
   LOAD_DATA: 'LOAD_DATA',
   LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
-  LOAD_DATA2: 'LOAD_DATA2',
-  LOAD_DATA2_SUCCESS: 'LOAD_DATA2_SUCCESS',
   START_CLOCK: 'START_CLOCK',
   TICK_CLOCK: 'TICK_CLOCK',
   PAGE_NUMBER: 'PAGE_NUMBER'
@@ -38,17 +36,6 @@ export function loadData() {
 export function loadDataSuccess(data) {
   return {
     type: actionTypes.LOAD_DATA_SUCCESS,
-    data
-  }
-}
-
-export function loadData2() {
-  return { type: actionTypes.LOAD_DATA2 }
-}
-
-export function loadData2Success(data) {
-  return {
-    type: actionTypes.LOAD_DATA2_SUCCESS,
     data
   }
 }

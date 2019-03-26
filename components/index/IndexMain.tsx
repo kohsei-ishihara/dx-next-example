@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon as FA } from '@fortawesome/react-fontawesome'
 import StyledButton from '../StyledButton'
 import StyledButton2 from '../StyledButton2'
+import Page from '../Page'
 
 class IndexMain extends React.Component {
   constructor(props) {
@@ -38,6 +39,12 @@ class IndexMain extends React.Component {
               <StyledButton color={'red'}>カスタマイズボタン</StyledButton>
               <StyledButton2 color={'red'}>カスタマイズボタン</StyledButton2>
             </section>
+
+            <Page
+              title={this.props.title}
+              linkTo="/other"
+              NavigateTo="Other Page"
+            />
           </article>
         </main>
         <script

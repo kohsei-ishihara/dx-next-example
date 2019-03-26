@@ -40,12 +40,6 @@ function reducer(state = exampleInitialState, action) {
         ...{ placeholderData: action.data }
       }
 
-    case actionTypes.LOAD_DATA2_SUCCESS:
-      return {
-        ...state,
-        ...{ placeholderData: action.data }
-      }
-
     case actionTypes.TICK_CLOCK:
       return {
         ...state,

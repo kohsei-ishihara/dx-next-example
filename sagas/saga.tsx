@@ -5,7 +5,6 @@ import {
   actionTypes,
   failure,
   loadDataSuccess,
-  loadData2Success,
   tickClock
 } from '../actions/actions'
 import fetch from 'isomorphic-unfetch'
@@ -30,27 +29,12 @@ function* loadDataSaga() {
   }
 }
 
-function* loadData2Saga() {
-  try {
-    const pageNumber = yield take('PAGE_NUMBER')
-    const res = yield fetch(`http://localhost:3001/api/products/${pageNumber}`)
-    const data = yield res.json()
-    yield put(loadData2Success(data))
-  } catch (err) {
-    yield put(failure(err))
-  }
-}
-
 function* runLoadDataSaga() {
   yield takeLatest(actionTypes.LOAD_DATA, loadDataSaga)
 }
 
-function* runLoadData2Saga() {
-  yield takeLatest(actionTypes.LOAD_DATA2, loadData2Saga)
-}
-
 function* rootSaga() {
-  yield all([call(runClockSaga), call(runLoadDataSaga), call(runLoadData2Saga)])
+  yield all([call(runClockSaga), call(runLoadDataSaga)])
 }
 
 export default rootSaga
