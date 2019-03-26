@@ -51,7 +51,7 @@ class JsonLd extends React.Component {
       let pages = []
       if (this.props.contents.bread_crumb_list[0]) {
         let position = 1
-        this.props.contents.bread_crumb_list.forEach((element) => {
+        this.props.contents.bread_crumb_list.forEach(element => {
           position++
           pages.push({
             '@type': 'ListItem',
@@ -85,4 +85,4 @@ class JsonLd extends React.Component {
   }
 }
 
-export default JsonLd
+export { JsonLd }

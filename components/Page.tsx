@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react'
 
-class Page extends React.Component {
+class PageComponent extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -24,4 +24,5 @@ class Page extends React.Component {
   }
 }
 
-export default connect(state => state)(Page)
+const Page = connect(state => state)(PageComponent)
+export { Page }

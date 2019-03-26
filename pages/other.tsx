@@ -1,16 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  loadData
-} from '../actions/actions'
+import { loadData } from '../actions/actions'
 import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
 
-import BreadCrumb from '../components/layouts/BreadCrumb'
-import OtherMain from '../components/other/OtherMain'
-import CustomHead from '../components/layouts/CustomHead'
+import { BreadCrumb } from '../components/layouts/BreadCrumb'
+import { OtherMain } from '../components/other/OtherMain'
 import { withRouter } from 'next/router'
 import Grid from '@material-ui/core/Grid/Grid'
-import JsonLd from '../components/layouts/JsonLd'
+import { JsonLd } from '../components/layouts/JsonLd'
 import checkUndefined from '../components/functions/CheckUndefined'
 
 class Other extends React.Component {
