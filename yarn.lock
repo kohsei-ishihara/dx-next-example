@@ -7463,6 +7463,10 @@ next-redux-wrapper@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-2.0.0.tgz#74587381ff9c762cd85676d9739a51a3aeceed58"
 
+next-seo@^1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-1.11.1.tgz#fd17a522b84e3d21c367e5b54e801731c8c1c3ba"
+
 next-server@8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/next-server/-/next-server-8.0.3.tgz#47c5ad0317cd712f5ad8d35d817ad0668b7341cc"

@@ -22,6 +22,8 @@ import getPageContext from '../components/functions/getPageContext'
 import { create } from 'jss'
 import { createMuiTheme } from '@material-ui/core/styles'
 import pink from '@material-ui/core/colors/pink'
+import NextSeo from 'next-seo'
+import SEO from '../next-seo.config'
 
 const theme = createMuiTheme({
   palette: {
@@ -66,6 +68,7 @@ class MyApp extends App {
     const { Component, pageProps, store } = this.props
     return (
       <Container>
+        <NextSeo config={SEO} />
         <Provider store={store}>
           <JssProvider
             jss={jss}

@@ -1,22 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  loadData,
-  startClock,
-  tickClock,
-  setPageNumber
-} from '../actions/actions'
+import { loadData } from '../actions/actions'
 import CustomHead from '../components/layouts/CustomHead'
 import JsonLd from '../components/layouts/JsonLd'
-import SkipToContent from '../components/layouts/SkipToContent'
-import Header from '../components/layouts/Header'
 import BreadCrumb from '../components/layouts/BreadCrumb'
-import Footer from '../components/layouts/Footer'
+import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
 import IndexMain from '../components/index/IndexMain'
 import Grid from '@material-ui/core/Grid'
 import { withRouter } from 'next/router'
 import { inspect } from 'util'
 import checkUndefined from '../components/functions/CheckUndefined'
+import NextSeo from 'next-seo'
 
 class Index extends React.Component {
   constructor(props) {
@@ -25,8 +19,6 @@ class Index extends React.Component {
 
   static async getInitialProps(props) {
     const { store, isServer, query } = props.ctx
-    store.dispatch(tickClock(isServer))
-    store.dispatch(setPageNumber(query.page || '1'))
 
     if (!store.getState().placeholderData) {
       store.dispatch(loadData())
@@ -54,10 +46,6 @@ class Index extends React.Component {
     return false
   }
 
-  componentDidMount() {
-    this.props.dispatch(startClock())
-  }
-
   render() {
     {
       /* type|url|image はデフォルト値有り*/
@@ -72,6 +60,14 @@ class Index extends React.Component {
           description: `ページ説明だよ`
         }
 
+    const SEO = {
+      noindex: true,
+      ...contents,
+      openGraph: {
+        ...contents
+      }
+    }
+
     const json_contents = {
       news_article: true,
       bread_crumb: true,
@@ -81,7 +77,7 @@ class Index extends React.Component {
 
     return (
       <Grid container direction="row" justify="center" alignItems="center">
-        <CustomHead contents={contents} />
+        <NextSeo config={SEO} />
         <JsonLd contents={json_contents} />
         <Grid item xs={12}>
           <SkipToContent />
