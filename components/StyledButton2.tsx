@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { Button } from 'styled-button-component'
 
@@ -8,7 +8,7 @@ const StyleBtn = ({ className, color, children, ...props }) => (
   </Button>
 )
 
-const StyledButton = styled(StyleBtn)`
+const StyledButton2 = styled(StyleBtn)`
   ${props =>
     props.color === 'red' &&
     css`
@@ -45,4 +45,4 @@ const StyledButton = styled(StyleBtn)`
       }
     `}
 `
-export default StyledButton
+export { StyledButton2 }

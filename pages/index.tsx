@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { loadData } from '../actions/actions'
-import CustomHead from '../components/layouts/CustomHead'
-import JsonLd from '../components/layouts/JsonLd'
-import BreadCrumb from '../components/layouts/BreadCrumb'
 import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
-import IndexMain from '../components/index/IndexMain'
+import { JsonLd } from '../components/layouts/JsonLd'
+import { BreadCrumb } from '../components/layouts/BreadCrumb'
+import { IndexMain } from '../components/index/IndexMain'
 import Grid from '@material-ui/core/Grid'
 import { withRouter } from 'next/router'
 import { inspect } from 'util'
@@ -28,22 +27,6 @@ class Index extends React.Component {
 
   state = {
     open: false
-  }
-
-  handleClose = () => {
-    this.setState({
-      open: false
-    })
-  }
-
-  handleClick = () => {
-    this.setState({
-      open: true
-    })
-  }
-  handleOpenLink = (href: string) => {
-    window.open(href)
-    return false
   }
 
   render() {

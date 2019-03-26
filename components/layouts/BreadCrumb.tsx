@@ -39,4 +39,4 @@ function handleClick(event) {
   alert('You clicked a breadcrumb.')
 }
 
-export default BreadCrumb
+export { BreadCrumb }
