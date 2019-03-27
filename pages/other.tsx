@@ -1,46 +1,35 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { loadData } from '../actions/actions'
+import React, { Component } from 'react'
 import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
-
-import { BreadCrumb } from '../components/layouts/BreadCrumb'
+import { CounterConsumer } from '../components/CounterProvider'
+import Grid from '@material-ui/core/Grid'
+import NextSeo from 'next-seo'
+import CheckUndefined from '../components/functions/CheckUndefined'
 import { OtherMain } from '../components/other/OtherMain'
 import { withRouter } from 'next/router'
-import Grid from '@material-ui/core/Grid/Grid'
+import { BreadCrumb } from '../components/layouts/BreadCrumb'
 import { JsonLd } from '../components/layouts/JsonLd'
-import checkUndefined from '../components/functions/CheckUndefined'
 
-class Other extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  static async getInitialProps(props) {
-    const { store, isServer, query } = props.ctx
-
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData())
-    }
-    return { isServer }
-  }
-
+class Other extends Component {
   render() {
-    {
-      /* type|url|image はデフォルト値有り*/
-    }
-    const contents = checkUndefined(this.props.router.query.page)
+    console.log(this.props.router.query.page)
+
+    const contents = CheckUndefined(this.props.router.query.page)
       ? {
-          title: `ページタイトルだよ Other ページ${
-            this.props.router.query.page
-          }`,
-          description: `ページ説明だよ Other ページ${
-            this.props.router.query.page
-          }`
-        }
+        title: `Otherページタイトルだよ ページ${this.props.router.query.page}`,
+        description: `Otherページ説明だよ ページ${this.props.router.query.page}`
+      }
       : {
-          title: `ページタイトルだよ Other`,
-          description: `ページ説明だよ Other`
-        }
+        title: `Otherページタイトルだよ`,
+        description: `Otherページ説明だよ`
+      }
+
+    const SEO = {
+      noindex: true,
+      ...contents,
+      openGraph: {
+        ...contents
+      }
+    }
 
     const json_contents = {
       news_article: true,
@@ -50,20 +39,34 @@ class Other extends React.Component {
     }
 
     return (
-      <Grid container direction="row" justify="center" alignItems="center">
-        <JsonLd contents={json_contents} />
-        <Grid item xs={12}>
-          <SkipToContent />
-          <Header />
-          <BreadCrumb />
-          <OtherMain
-            title={contents.title}
-            description={contents.description}
-          />
-          <Footer />
-        </Grid>
-      </Grid>
+      <CounterConsumer>
+        {({ count, increaseBy, reset }) => (
+          <Grid container direction="row" justify="center" alignItems="center">
+            <NextSeo config={SEO} />
+            <JsonLd contents={json_contents} />
+            <Grid item xs={12}>
+              <SkipToContent />
+              <Header />
+              <BreadCrumb />
+              <OtherMain
+                title={contents.title}
+                description={contents.description}
+              />
+              <section>
+                <p>Counter: {count}</p>
+                <button onClick={reset}>reset</button>
+                <button onClick={() => {
+                  increaseBy(15)
+                }}>Increase By 15</button>
+              </section>
+              <Footer />
+            </Grid>
+          </Grid>
+        )}
+      </CounterConsumer>
     )
   }
 }
-export default withRouter(connect()(Other))
+
+export default withRouter(Other)
+

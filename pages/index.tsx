@@ -1,39 +1,19 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { loadData } from '../actions/actions'
+import React, { Component } from 'react'
 import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
-import { JsonLd } from '../components/layouts/JsonLd'
-import { BreadCrumb } from '../components/layouts/BreadCrumb'
-import { IndexMain } from '../components/index/IndexMain'
+import { CounterConsumer } from '../components/CounterProvider'
 import Grid from '@material-ui/core/Grid'
-import { withRouter } from 'next/router'
-import { inspect } from 'util'
-import checkUndefined from '../components/functions/CheckUndefined'
 import NextSeo from 'next-seo'
+import CheckUndefined from '../components/functions/CheckUndefined'
+import { IndexMain } from '../components/index/IndexMain'
+import { withRouter } from 'next/router'
+import { BreadCrumb } from '../components/layouts/BreadCrumb'
+import { JsonLd } from '../components/layouts/JsonLd'
 
-class Index extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  static async getInitialProps(props) {
-    const { store, isServer, query } = props.ctx
-
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData())
-    }
-    return { isServer, pageLog: inspect(query.page, true, 0) }
-  }
-
-  state = {
-    open: false
-  }
-
+class Index extends Component {
   render() {
-    {
-      /* type|url|image はデフォルト値有り*/
-    }
-    const contents = checkUndefined(this.props.router.query.page)
+    console.log(this.props.router.query.page)
+
+    const contents = CheckUndefined(this.props.router.query.page)
       ? {
           title: `ページタイトルだよ ページ${this.props.router.query.page}`,
           description: `ページ説明だよ ページ${this.props.router.query.page}`
@@ -59,21 +39,31 @@ class Index extends React.Component {
     }
 
     return (
-      <Grid container direction="row" justify="center" alignItems="center">
-        <NextSeo config={SEO} />
-        <JsonLd contents={json_contents} />
-        <Grid item xs={12}>
-          <SkipToContent />
-          <Header />
-          <BreadCrumb />
-          <IndexMain
-            title={contents.title}
-            description={contents.description}
-          />
-          <Footer />
-        </Grid>
-      </Grid>
+      <CounterConsumer>
+        {({ count, increase, decrease }) => (
+          <Grid container direction="row" justify="center" alignItems="center">
+            <NextSeo config={SEO} />
+            <JsonLd contents={json_contents} />
+            <Grid item xs={12}>
+              <SkipToContent />
+              <Header />
+              <BreadCrumb />
+              <IndexMain
+                title={contents.title}
+                description={contents.description}
+              />
+              <section>
+                <p>Counter: {count}</p>
+                <button onClick={increase}>Increase</button>
+                <button onClick={decrease}>Decrease</button>
+              </section>
+              <Footer />
+            </Grid>
+          </Grid>
+        )}
+      </CounterConsumer>
     )
   }
 }
-export default withRouter(connect()(Index))
+
+export default withRouter(Index)
