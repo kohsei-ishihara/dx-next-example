@@ -20,7 +20,7 @@ const HeaderStyles = {
   }
 }
 
-const HeaderComponent = ({ ...styles }) => {
+const HeaderComponent = styles => {
   return (
     <header>
       <nav className={styles.root}>
@@ -58,12 +58,10 @@ const Footer = () => {
 
 const SkipToContent = () => {
   return (
-    <>
+    <a href="#main" className="sr-only sr-only-focusable">
       {/* bootstrapをつかってるので、後でどうにかする */}
-      <a href="#main" className="sr-only sr-only-focusable">
-        メインコンテンツへ
-      </a>
-    </>
+      メインコンテンツへ
+    </a>
   )
 }
 

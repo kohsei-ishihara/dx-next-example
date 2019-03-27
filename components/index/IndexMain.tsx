@@ -38,12 +38,7 @@ class IndexMain extends React.Component {
               <StyledButton color={'red'}>カスタマイズボタン</StyledButton>
               <StyledButton2 color={'red'}>カスタマイズボタン</StyledButton2>
             </section>
-
-            <Page
-              title={this.props.title}
-              linkTo="/other"
-              NavigateTo="Other Page"
-            />
+            
           </article>
         </main>
         <script

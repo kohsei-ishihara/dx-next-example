@@ -1,4 +1,5 @@
 export default {
+  titleTemplate: `[%s]`,
   title: 'デフォタイトルだよ',
   description: 'デフォ説明だよ',
   openGraph: {
