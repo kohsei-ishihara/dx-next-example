@@ -1,28 +1,28 @@
-import { connect } from 'react-redux'
 import React from 'react'
+import { Subscribe } from 'unstated'
+import { ProductContainer } from './containers/ProductContainer'
 
-class PageComponent extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <section>
-        {this.props.placeholderData && (
-          <pre>
-            <code>
-              {JSON.stringify(this.props.placeholderData.data, null, 2)}
-            </code>
-          </pre>
-        )}
-        {this.props.error && (
-          <p style={{ color: 'red' }}>Error: {this.props.error.message}</p>
-        )}
-      </section>
-    )
-  }
+const Page = () => {
+  return (
+    <Subscribe to={[ProductContainer]}>
+      {container => {
+        const { data, error, loading } = container.state
+        if (!data && !error && !loading) {
+          container.getData('https://jsonplaceholder.typicode.com/users')
+          //container.getData(process.env.CEEMS_API_PRODUCTS)
+        }
+        return (
+          <section>
+            {data && (
+              <pre>
+                <code>{JSON.stringify(data, null, 2)}</code>
+              </pre>
+            )}
+            {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+          </section>
+        )
+      }}
+    </Subscribe>
+  )
 }
-
-const Page = connect(state => state)(PageComponent)
 export { Page }
