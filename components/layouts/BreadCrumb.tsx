@@ -5,24 +5,22 @@ import Breadcrumbs from '@material-ui/lab/Breadcrumbs'
 import Link from '@material-ui/core/Link'
 import styled from 'styled-components'
 
-class BreadCrumb extends React.Component {
-  render() {
-    return (
-      <nav aria-label="パンくずリスト">
-        <PaperIeul>
-          <BreadcrumbsIeul aria-label="Breadcrumb">
-            <Link color="inherit" href="/" onClick={handleClick}>
-              Material-UI
-            </Link>
-            <Link color="inherit" href="/lab/about/" onClick={handleClick}>
-              Lab
-            </Link>
-            <Typography color="textPrimary">Breadcrumb</Typography>
-          </BreadcrumbsIeul>
-        </PaperIeul>
-      </nav>
-    )
-  }
+const BreadCrumb = () => {
+  return (
+    <nav aria-label="パンくずリスト">
+      <PaperIeul>
+        <BreadcrumbsIeul aria-label="Breadcrumb">
+          <Link color="inherit" href="/" onClick={handleClick}>
+            Material-UI
+          </Link>
+          <Link color="inherit" href="/lab/about/" onClick={handleClick}>
+            Lab
+          </Link>
+          <Typography color="textPrimary">Breadcrumb</Typography>
+        </BreadcrumbsIeul>
+      </PaperIeul>
+    </nav>
+  )
 }
 
 const BreadcrumbsIeul = styled(Breadcrumbs)`
@@ -34,9 +32,9 @@ const PaperIeul = styled(Paper)`
   box-shadow: none !important;
 `
 
-function handleClick(event) {
+const handleClick = event => {
   event.preventDefault()
   alert('You clicked a breadcrumb.')
 }
 
-export default BreadCrumb
+export { BreadCrumb }

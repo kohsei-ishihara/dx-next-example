@@ -7,6 +7,7 @@ const path = require('path')
 const Dotenv = require('dotenv-webpack')
 
 const nextConfig = {
+  crossOrigin: 'anonymous',
   workboxOpts: {
     swDest: 'service-worker.js',
     runtimeCaching: [

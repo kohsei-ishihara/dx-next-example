@@ -1,48 +1,44 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import {loadData, setPageNumber, startClock, tickClock} from '../actions/actions'
-import SkipToContent from '../components/layouts/SkipToContent'
-import Header from '../components/layouts/Header'
-import BreadCrumb from '../components/layouts/BreadCrumb'
-import Footer from '../components/layouts/Footer'
-import OtherMain from '../components/other/OtherMain'
-import CustomHead from "../components/layouts/CustomHead";
+import React, { Component } from 'react'
+import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
+import Grid from '@material-ui/core/Grid'
+import NextSeo from 'next-seo'
+import { checkUndefined } from '../components/functions/functions'
+import { OtherMain } from '../components/other/OtherMain'
 import { withRouter } from 'next/router'
-import Grid from "@material-ui/core/Grid/Grid";
-import JsonLd from "../components/layouts/JsonLd";
-import checkUndefined from "../components/functions/CheckUndefined";
+import { BreadCrumb } from '../components/layouts/BreadCrumb'
+import { JsonLd } from '../components/layouts/JsonLd'
 
-class Other extends React.Component {
+class Other extends Component {
   constructor(props) {
     super(props)
-  }
-
-  static async getInitialProps(props) {
-    const { store, isServer, query } = props.ctx
-    store.dispatch(tickClock(isServer))
-    store.dispatch(setPageNumber(query.page || '1'))
-
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData())
+    this.state = {
+      count: 0
     }
-    return { isServer }
-  }
-
-  componentDidMount() {
-    this.props.dispatch(startClock())
   }
 
   render() {
-    {/* type|url|image はデフォルト値有り*/}
+    console.log(this.props.router.query.page)
+
     const contents = checkUndefined(this.props.router.query.page)
       ? {
-        title: `ページタイトルだよ Other ページ${this.props.router.query.page}`,
-        description: `ページ説明だよ Other ページ${this.props.router.query.page}`
-      }
+          title: `Otherページタイトルだよ ページ${
+            this.props.router.query.page
+          }`,
+          description: `Otherページ説明だよ ページ${
+            this.props.router.query.page
+          }`
+        }
       : {
-        title: `ページタイトルだよ Other`,
-        description: `ページ説明だよ Other`
+          title: `Otherページタイトルだよ`,
+          description: `Otherページ説明だよ`
+        }
+
+    const SEO = {
+      ...contents,
+      openGraph: {
+        ...contents
       }
+    }
 
     const json_contents = {
       news_article: true,
@@ -53,7 +49,7 @@ class Other extends React.Component {
 
     return (
       <Grid container direction="row" justify="center" alignItems="center">
-        <CustomHead contents={contents} />
+        <NextSeo config={SEO} />
         <JsonLd contents={json_contents} />
         <Grid item xs={12}>
           <SkipToContent />
@@ -69,4 +65,5 @@ class Other extends React.Component {
     )
   }
 }
-export default withRouter(connect()(Other))
+
+export default withRouter(Other)

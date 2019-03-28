@@ -52,4 +52,4 @@ const RetImg = styled(TmpImg)`
   }
 `
 
-export default LazyImg
+export { LazyImg }

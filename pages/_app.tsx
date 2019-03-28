@@ -1,8 +1,9 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import withRedux from 'next-redux-wrapper'
-import withReduxSaga from 'next-redux-saga'
-import createStore from '../stores/store'
+import App, { Container } from 'next/app'
+import { MuiThemeProvider, jssPreset } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import JssProvider from 'react-jss/lib/JssProvider'
+import { Provider } from 'unstated'
+import getPageContext from '../components/functions/getPageContext'
 import '../css/custom.min.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
@@ -14,11 +15,9 @@ import { createGlobalStyle } from 'styled-components'
 config.autoAddCss = false
 library.add(fab, faHomeLight, faHomeRegular, faHome)
 
-import App, { Container } from 'next/app'
-import { MuiThemeProvider, jssPreset } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import JssProvider from 'react-jss/lib/JssProvider'
-import getPageContext from '../components/functions/getPageContext'
+import NextSeo from 'next-seo'
+import SEO from '../next-seo.config'
+
 import { create } from 'jss'
 import { createMuiTheme } from '@material-ui/core/styles'
 import pink from '@material-ui/core/colors/pink'
@@ -61,31 +60,29 @@ class MyApp extends App {
       jssStyles.parentNode.removeChild(jssStyles)
     }
   }
-
   render() {
-    const { Component, pageProps, store } = this.props
+    const { Component, pageProps } = this.props
     return (
       <Container>
-        <Provider store={store}>
-          <JssProvider
-            jss={jss}
-            registry={this.pageContext.sheetsRegistry}
-            generateClassName={this.pageContext.generateClassName}
+        <NextSeo config={SEO} />
+        <JssProvider
+          jss={jss}
+          registry={this.pageContext.sheetsRegistry}
+          generateClassName={this.pageContext.generateClassName}
+        >
+          <MuiThemeProvider
+            theme={theme}
+            sheetsManager={this.pageContext.sheetsManager}
           >
-            <MuiThemeProvider
-              theme={theme}
-              sheetsManager={this.pageContext.sheetsManager}
-            >
-              <CssBaseline />
+            <CssBaseline />
+            <Provider>
               <Component pageContext={this.pageContext} {...pageProps} />
-            </MuiThemeProvider>
-          </JssProvider>
-        </Provider>
+            </Provider>
+          </MuiThemeProvider>
+        </JssProvider>
       </Container>
     )
   }
 }
-const GlobalStyle = createGlobalStyle`
-`
 
-export default withRedux(createStore)(withReduxSaga({ async: true })(MyApp))
+export default MyApp

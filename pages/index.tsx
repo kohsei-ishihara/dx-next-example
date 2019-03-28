@@ -1,67 +1,15 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import {
-  loadData,
-  startClock,
-  tickClock,
-  setPageNumber
-} from '../actions/actions'
-import CustomHead from '../components/layouts/CustomHead'
-import JsonLd from '../components/layouts/JsonLd'
-import SkipToContent from '../components/layouts/SkipToContent'
-import Header from '../components/layouts/Header'
-import BreadCrumb from '../components/layouts/BreadCrumb'
-import Footer from '../components/layouts/Footer'
-import IndexMain from '../components/index/IndexMain'
+import React, { Component } from 'react'
+import { SkipToContent, Header, Footer } from '../components/layouts/Layouts'
 import Grid from '@material-ui/core/Grid'
+import NextSeo from 'next-seo'
+import { checkUndefined } from '../components/functions/functions'
+import { IndexMain } from '../components/index/IndexMain'
 import { withRouter } from 'next/router'
-import { inspect } from 'util'
-import checkUndefined from '../components/functions/CheckUndefined'
+import { BreadCrumb } from '../components/layouts/BreadCrumb'
+import { JsonLd } from '../components/layouts/JsonLd'
 
-class Index extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  static async getInitialProps(props) {
-    const { store, isServer, query } = props.ctx
-    store.dispatch(tickClock(isServer))
-    store.dispatch(setPageNumber(query.page || '1'))
-
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData())
-    }
-    return { isServer, pageLog: inspect(query.page, true, 0) }
-  }
-
-  state = {
-    open: false
-  }
-
-  handleClose = () => {
-    this.setState({
-      open: false
-    })
-  }
-
-  handleClick = () => {
-    this.setState({
-      open: true
-    })
-  }
-  handleOpenLink = (href: string) => {
-    window.open(href)
-    return false
-  }
-
-  componentDidMount() {
-    this.props.dispatch(startClock())
-  }
-
+class Index extends Component {
   render() {
-    {
-      /* type|url|image はデフォルト値有り*/
-    }
     const contents = checkUndefined(this.props.router.query.page)
       ? {
           title: `ページタイトルだよ ページ${this.props.router.query.page}`,
@@ -72,6 +20,13 @@ class Index extends React.Component {
           description: `ページ説明だよ`
         }
 
+    const SEO = {
+      ...contents,
+      openGraph: {
+        ...contents
+      }
+    }
+
     const json_contents = {
       news_article: true,
       bread_crumb: true,
@@ -81,7 +36,7 @@ class Index extends React.Component {
 
     return (
       <Grid container direction="row" justify="center" alignItems="center">
-        <CustomHead contents={contents} />
+        <NextSeo config={SEO} />
         <JsonLd contents={json_contents} />
         <Grid item xs={12}>
           <SkipToContent />
@@ -97,4 +52,5 @@ class Index extends React.Component {
     )
   }
 }
-export default withRouter(connect()(Index))
+
+export default withRouter(Index)
