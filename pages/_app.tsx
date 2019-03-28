@@ -2,16 +2,25 @@ import App, { Container } from 'next/app'
 import { MuiThemeProvider, jssPreset } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import JssProvider from 'react-jss/lib/JssProvider'
+import { Provider } from 'unstated'
 import getPageContext from '../components/functions/getPageContext'
 import '../css/custom.min.css'
-import CounterProvider from '../components/CounterProvider'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { library, config } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faHome as faHomeLight } from '@fortawesome/pro-light-svg-icons'
+import { faHome as faHomeRegular } from '@fortawesome/pro-regular-svg-icons'
+import { faHome } from '@fortawesome/pro-solid-svg-icons'
+import { createGlobalStyle } from 'styled-components'
+config.autoAddCss = false
+library.add(fab, faHomeLight, faHomeRegular, faHome)
+
 import NextSeo from 'next-seo'
 import SEO from '../next-seo.config'
 
 import { create } from 'jss'
 import { createMuiTheme } from '@material-ui/core/styles'
 import pink from '@material-ui/core/colors/pink'
-
 
 const theme = createMuiTheme({
   palette: {
@@ -66,9 +75,9 @@ class MyApp extends App {
             sheetsManager={this.pageContext.sheetsManager}
           >
             <CssBaseline />
-            <CounterProvider>
+            <Provider>
               <Component pageContext={this.pageContext} {...pageProps} />
-            </CounterProvider>
+            </Provider>
           </MuiThemeProvider>
         </JssProvider>
       </Container>
