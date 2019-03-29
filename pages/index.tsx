@@ -7,15 +7,32 @@ import { IndexMain } from '../components/index/IndexMain'
 import { withRouter } from 'next/router'
 import { BreadCrumb } from '../components/layouts/BreadCrumb'
 import { JsonLd } from '../components/layouts/JsonLd'
+import fetch from 'isomorphic-unfetch'
 
 class Index extends Component {
+  static async getInitialProps() {
+    const fetchData = { data: null, error: null, loading: true }
+
+    try {
+      fetchData.data = await fetch(
+        'https://jsonplaceholder.typicode.com/users'
+      ).then(r => r.json())
+    } catch (err) {
+      fetchData.error = err
+    }
+    fetchData.loading = false
+
+    return {
+      fetchData: fetchData
+    }
+  }
+
+  constructor(props) {
+    super(props)
+  }
+
   render() {
-    const contents = checkUndefined(this.props.router.query.page)
-      ? {
-          title: `ページタイトルだよ ページ${this.props.router.query.page}`,
-          description: `ページ説明だよ ページ${this.props.router.query.page}`
-        }
-      : {
+    const contents = {
           title: `ページタイトルだよ`,
           description: `ページ説明だよ`
         }
@@ -43,8 +60,10 @@ class Index extends Component {
           <Header />
           <BreadCrumb />
           <IndexMain
+            page={checkUndefined(this.props.router.query.page) ? this.props.router.query.page : 1}
             title={contents.title}
             description={contents.description}
+            fetchData={this.props.fetchData}
           />
           <Footer />
         </Grid>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container } from 'unstated'
 import fetch from 'isomorphic-unfetch'
 
