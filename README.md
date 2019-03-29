@@ -10,12 +10,6 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 ```
 .
 ├── components                                       // コンポーネント
-│   ├── containers                                   // Context API 用 Container
-│   │   ├── CounterContainer.ts
-│   │   └── ProductContainer.ts
-│   ├── functions                                    // 関数群
-│   │   ├── getPageContext.ts                        // Material UI SSR用
-│   │   └── functions.ts                             // Undefinedの判定
 │   ├── index                                        // index ページ関連
 │   │   └── IndexMain.tsx                            // index ページ main コンポーネント
 │   ├── layouts                                      // レイアウト関連
@@ -28,6 +22,9 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 │   ├── Page.tsx                                     // API 接続サンプル
 │   ├── StyledButton.tsx                             // MaterialUI Button タグカスタマイズサンプル
 │   └── StyledButton2.tsx                            // Bootstrap Button タグカスタマイズサンプル
+├── containers                                       // Context API 用 Container
+│   ├── CounterContainer.ts
+│   └── IndexContainer.ts
 ├── deploy                                           // ディプロイ設定フォルダ
 ├── docker                                           // Dockerフォルダ
 │   ├── development                                  // 開発用
@@ -42,6 +39,9 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 │   └── production                                   // 本番用
 │       ├── express                                  // アプリ用 Docker
 │       └── nginx                                    // nginx用 Docker
+├── functions                                        // 関数群
+│   ├── getPageContext.ts                            // Material UI SSR用
+│   └── functions.ts                                 // Undefinedの判定
 ├── mounts                                           // Docker用マウントボリューム
 │   ├── lsyncd                                       // express用 Docker lsyncd設定
 │   │   └── conf.d
@@ -94,7 +94,7 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 ├── jest.config.js                                   // jest 設定
 ├── jest.setup.js                                    // jest 用アダプタ
 ├── jest.tsconfig.json                               // jset 用 Typescript 設定
-├── next-seo.config.js
+├── next-seo.config.js                               // ogp 設定
 ├── next.config.js                                   // next.js 設定
 ├── package-lock.json                                // アプリ設定バージョン管理
 ├── package.json                                     // アプリ設定
@@ -104,20 +104,6 @@ DX フロントエンド開発用に調整した Next.js によるアプリケ�
 └── yarn.lock                                        // yarn で入れた node モジュールのバージョン管理
 
 ```
-## Todo
-* [x] SEO対策
-* [x] Accessibility対策
-* [x] SNS対策
-* [x] CSS組み込み
-* [x] コンポーネント単位でのスタイル掛け
-* [x] ユニットテストの整理
-* [ ] インフラ、ディプロイ方法周りの整理
-* [ ] データアクセス部分の整理
-* [ ] ログイン処理の実装
-
-### 既存サービスに実装の場合
-* [ ] サービスのUIを移植
-* [ ] サービスとのAPIつなぎ込み
 
 ## Demo
 N/A
@@ -126,7 +112,7 @@ N/A
 [Docker](https://www.docker.com/)  
 [Visual Studio Code](https://code.visualstudio.com/) またはその他のエディタ・IDE  
 
-## Usage
+## Install
 ### アプリフォルダの準備
 Github でアプリの新しいレポジトリを準備しておく
 
@@ -178,6 +164,77 @@ git push
     ``` 
     /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost  
     ```
+## Usage
+### ページの追加
+* `/containers/[ページ名].tsx`ファイルを作成
+* `/containers/[ページ名].tsx`ファイルにステートとステートを操作する関数を記述
+    ```
+    例)
+    class IndexContainer extends Container {
+      state = {
+        page: null
+      }
+    
+      setPage = val => {
+        this.setState({
+          page: val
+        })
+      }
+    }
+    ```
+* `/pages/[ページ名].tsx`ファイルを作成
+* `/pages/[ページ名].tsx`ファイルに`NextSeo`、`JsonLd`、`SkipToContent`等のSEO、アクセシビリティ対応のコンポーネントを配置
+* `components/[ページ名]/[ページ名]Main.tsx`ファイルを作成
+* `components/[ページ名]/[ページ名]Main.tsx`ファイルにHOCとしてコンテナを配置
+    ```
+    例)
+    <Subscribe to={[IndexContainer]}>
+      {indexContainer => (
+        <>
+        {/*コンポーネントやその他JSXを配置*/}
+        </>
+      )}
+    </Subscribe>
+    ```
+* `/pages/[ページ名].tsx`ファイルに`[ページ名]Main`を配置
+    ```
+    例)
+    <Grid container direction="row" justify="center" alignItems="center">
+      <NextSeo config={SEO} />
+      <JsonLd contents={json_contents} />
+      <Grid item xs={12}>
+        <SkipToContent />
+        <Header />
+        <BreadCrumb />
+        <IndexMain
+            page={checkUndefined(this.props.router.query.page) ? this.props.router.query.page : 1}
+            title={contents.title}
+            description={contents.description}
+            fetchData={this.props.fetchData}
+        />
+        <Footer />
+      </Grid>
+    </Grid>
+    ```
+    
+### API等からデータを取得
+* 基本的にはコンテナファイルの関数の中で`fetch`する
+* 初期データは、ページファイル`getInitialProps`で`fetch`する
+
+## Todo
+* [x] SEO対策
+* [x] Accessibility対策
+* [x] SNS対策
+* [x] CSS組み込み
+* [x] コンポーネント単位でのスタイル掛け
+* [x] ユニットテストの整理
+* [ ] インフラ、ディプロイ方法周りの整理
+* [x] データアクセス部分の整理
+* [ ] ログイン処理の実装
+
+### 既存サービスに実装
+* [ ] サービスのUIを移植
+* [ ] サービスとのAPIつなぎ込み
 
 ## Licence
 UNLICENSED

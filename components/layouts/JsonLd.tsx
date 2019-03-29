@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { checkUndefined } from '../functions/functions'
+import { checkUndefined } from '../../functions/functions'
 
 const JsonLd = ({ contents }) => {
   const jsonDLObj = []

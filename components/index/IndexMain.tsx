@@ -4,8 +4,8 @@ import { StyledButton } from '../StyledButton'
 import { StyledButton2 } from '../StyledButton2'
 import { Page } from '../Page'
 import { Subscribe } from 'unstated'
-import { CounterContainer } from '../containers/CounterContainer'
-import { IndexContainer } from '../containers/IndexContainer'
+import { CounterContainer } from '../../containers/CounterContainer'
+import { IndexContainer } from '../../containers/IndexContainer'
 
 import Link from 'next/link'
 
