@@ -4,8 +4,8 @@
 /css/*
 /.env
 /.npmrc
-/nginx/conf.d/server.crt
-/nginx/conf.d/private.key
-/nginx/conf.d/private.pass
+/mounts/nginx/conf.d/server.crt
+/mounts/nginx/conf.d/private.key
+/mounts/nginx/conf.d/private.pass
 /yarn-error.log
 /__tests__/*
