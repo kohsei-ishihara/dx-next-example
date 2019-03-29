@@ -1,7 +1,7 @@
-# DX next.js example
+# DX next.js with unstated
 DX フロントエンド開発用に調整した Next.js によるアプリケーションです。ボイラープレート的な。  
-アクセシビリティ、ユーザビリティ、SEO対策、SNS対応、Docker環境の設定などが含まれています。
-
+アクセシビリティ、ユーザビリティ、SEO 対策、SNS 対応、Docker 環境の設定などが含まれています。  
+Context API を利用したシンプルな State 管理にするために、unstated を利用しています。
 
 ## Description
 下記は、レポジトリに含まれるファイルとその説明となります。各プロジェクトに合わせて調整してください。  
